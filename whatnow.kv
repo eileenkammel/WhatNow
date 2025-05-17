@@ -62,6 +62,8 @@
                         default_size_hint: 1, None
                         size_hint_y: None
                         height: self.minimum_height
+                        size_hint_x: None
+                        width: 560
                         orientation: 'vertical'
                 BoxLayout:
                     size_hint_y: None
@@ -73,9 +75,13 @@
                         font_size: 22
                         size_hint_y: None
                         height: 50
+                        size_hint_x: None
+                        width: 500
                         on_text_validate: root.add_activity('digital', self.text); self.text = ''
                     Button:
-                        text: "Add"
+                        text: "+"
+                        color: 0, 1, 255, 1
+                        font_size: 40
                         size_hint_x: None
                         width: 60
                         height: 50
@@ -94,6 +100,8 @@
                         default_size_hint: 1, None
                         size_hint_y: None
                         height: self.minimum_height
+                        size_hint_x: None
+                        width: 560
                         orientation: 'vertical'
                 BoxLayout:
                     size_hint_y: None
@@ -105,13 +113,98 @@
                         font_size: 22
                         size_hint_y: None
                         height: 50
+                        size_hint_x: None
+                        width: 500
                         on_text_validate: root.add_activity('analogue', self.text); self.text = ''
                     Button:
-                        text: "Add"
+                        text: "+"
+                        color: 0, 1, 255, 1
+                        font_size: 40
                         size_hint_x: None
                         width: 60
                         height: 50
                         on_release: root.add_activity('analogue', analogue_input.text); analogue_input.text = ''
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 20
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: "Outside Activities"
+                    font_size: 18
+                RecycleView:
+                    id: outside_rv
+                    viewclass: 'ActivityItem'
+                    data: [{'text': activity, 'activity_type': 'outside', 'root_widget': root} for activity in root.outside_activities]
+                    RecycleBoxLayout:
+                        default_size: None, 40
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        size_hint_x: None
+                        width: 560
+                        orientation: 'vertical'
+                BoxLayout:
+                    size_hint_y: None
+                    height: 50
+                    TextInput:
+                        id: outside_input
+                        hint_text: "Add outside activity"
+                        multiline: False
+                        font_size: 22
+                        size_hint_y: None
+                        height: 50
+                        size_hint_x: None
+                        width: 500
+                        on_text_validate: root.add_activity('outside', self.text); self.text = ''
+                    Button:
+                        text: "+"
+                        color: 0, 1, 255, 1
+                        font_size: 40
+                        size_hint_x: None
+                        width: 60
+                        height: 50
+                        on_release: root.add_activity('outside', outside_input.text); outside_input.text = ''
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 20
+                BoxLayout:
+                    orientation: 'vertical'
+                    Label:
+                        text: "Inside Activities"
+                        font_size: 18
+                    RecycleView:
+                        id: inside_rv
+                        viewclass: 'ActivityItem'
+                        data: [{'text': activity, 'activity_type': 'inside', 'root_widget': root} for activity in root.inside_activities]
+                        RecycleBoxLayout:
+                            default_size: None, 40
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            size_hint_x: None
+                            width: 560
+                            orientation: 'vertical'
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 50
+                        TextInput:
+                            id: inside_input
+                            multiline: False
+                            font_size: 22
+                            size_hint_y: None
+                            height: 50
+                            size_hint_x: None
+                            width: 500
+                            on_text_validate: root.add_activity('inside', self.text); self.text = ''
+                        Button:
+                            text: "+"
+                            color: 0, 1, 255, 1
+                            font_size: 40
+                            size_hint_x: None
+                            width: 60
+                            height: 50
+                            on_release: root.add_activity('inside', inside_input.text); inside_input.text = ''
 
 <ActivityItem@BoxLayout>:
     text: ''
@@ -122,7 +215,9 @@
     Label:
         text: root.text
     Button:
-        text: "Delete"
+        text: "×"
+        font_size: 40
+        color: 1, 0, 0, 1
         size_hint_x: None
         width: 70
         on_release: root.root_widget.remove_activity(root.activity_type, root.text)
@@ -156,3 +251,11 @@
             Button:
                 text: "Analogue Activity"
                 on_release: root.suggest('analogue')
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                text: "Outside Activity"
+                on_release: root.suggest('outside')
+            Button:
+                text: "Inside Activity"
+                on_release: root.suggest('inside')

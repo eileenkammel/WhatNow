@@ -12,21 +12,27 @@ class HomeScreen(Screen):
 class ActivitiesScreen(Screen):
     digital_activities = ListProperty([])
     analogue_activities = ListProperty([])
+    inside_activities = ListProperty([])
+    outside_activities = ListProperty([])
 
     def on_pre_enter(self):
         store = JsonStore(STORE_PATH)
         if store.exists('lists'):
             self.digital_activities = store.get('lists')['digital']
             self.analogue_activities = store.get('lists')['analogue']
+            self.inside_activities = store.get('lists')['inside']
+            self.outside_activities = store.get('lists')['outside']
         else:
             self.digital_activities = []
             self.analogue_activities = []
+            self.inside_activities = []
+            self.outside_activities = []
 
     def add_activity(self, activity_type, activity):
         activity = activity.strip()
         if activity:
             store = JsonStore(STORE_PATH)
-            lists = store.get('lists') if store.exists('lists') else {'digital': [], 'analogue': []}
+            lists = store.get('lists') if store.exists('lists') else {'digital': [], 'analogue': [], 'inside': [], 'outside': []}
             if activity not in lists[activity_type]:
                 lists[activity_type].append(activity)
                 store.put('lists', **lists)
@@ -34,7 +40,7 @@ class ActivitiesScreen(Screen):
 
     def remove_activity(self, activity_type, activity):
         store = JsonStore(STORE_PATH)
-        lists = store.get('lists') if store.exists('lists') else {'digital': [], 'analogue': []}
+        lists = store.get('lists') if store.exists('lists') else {'digital': [], 'analogue': [], 'inside': [], 'outside': []}
         if activity in lists[activity_type]:
             lists[activity_type].remove(activity)
             store.put('lists', **lists)
@@ -45,7 +51,7 @@ class SuggestionScreen(Screen):
 
     def suggest(self, activity_type):
         store = JsonStore(STORE_PATH)
-        lists = store.get('lists') if store.exists('lists') else {'digital': [], 'analogue': []}
+        lists = store.get('lists') if store.exists('lists') else {'digital': [], 'analogue': [], 'inside': [], 'outside': []}
         activities = lists[activity_type]
         if activities:
             self.suggestion = random.choice(activities)
