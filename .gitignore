@@ -1,0 +1,7 @@
+.buildozer
+WhatNow
+bin
+data
+.DS_Store
+notes.md
+todo.md
