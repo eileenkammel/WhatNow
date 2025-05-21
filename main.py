@@ -47,14 +47,22 @@ class ActivitiesScreen(Screen):
         self.on_pre_enter()
 
 class SuggestionScreen(Screen):
+    last_suggestion = StringProperty("")
     suggestion = StringProperty("")
 
     def suggest(self, activity_type):
         store = JsonStore(STORE_PATH)
         lists = store.get('lists') if store.exists('lists') else {'digital': [], 'analogue': [], 'inside': [], 'outside': []}
         activities = lists[activity_type]
-        if activities:
-            self.suggestion = random.choice(activities)
+        if activities and len(activities) > 1:
+            suggestion = random.choice(activities)
+            while suggestion == self.last_suggestion:
+                suggestion = random.choice(activities)
+            self.suggestion = suggestion
+            self.last_suggestion = suggestion
+        elif activities and len(activities) == 1:
+            self.suggestion = activities[0]
+            self.last_suggestion = activities[0]
         else:
             self.suggestion = "No activities found!"
 
