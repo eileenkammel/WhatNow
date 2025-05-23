@@ -80,11 +80,21 @@
                 text: "Back"
                 size_hint: (None, 1) # Fixed width, fills parent height
                 width: dp(100)
+                background_color: (0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [dp(20), dp(20), dp(20), dp(20)] # Radius for rounded corners
                 on_release: app.root.current = 'home'
             Widget:  # Fills the rest of the row
         Label:
             text: "Your Activities"
             font_size: dp(60)
+            size_hint_y: None
+            height: self.texture_size[1]
         # First row of activity columns
         BoxLayout:
             orientation: 'horizontal'
@@ -96,7 +106,7 @@
                 # size_hint_y: None  // REMOVE this line or change to size_hint_y: 1
                 Label:
                     text: "Digital Activities"
-                    font_size: dp(18)
+                    font_size: dp(36)
                 RecycleView:
                     id: digital_rv
                     viewclass: 'ActivityItem'
@@ -118,7 +128,7 @@
                         hint_text_color: [0,0,0, 1]
                         foreground_color: [1,1,1,1]
                         hint_text: "Add digital activity"
-                        font_size: dp(16)
+                        font_size: dp(20)
                         background_color: [0,0,0,0]
                         background_image: ""
                         background_normal: ""
@@ -148,7 +158,7 @@
                 size_hint_x: 1
                 Label:
                     text: "Analogue Activities"
-                    font_size: dp(18)
+                    font_size: dp(36)
                 RecycleView:
                     id: analogue_rv
                     viewclass: 'ActivityItem'
@@ -170,7 +180,7 @@
                         hint_text_color: [0,0,0, 1]
                         foreground_color: [1,1,1,1]
                         hint_text: "Add analogue activity"
-                        font_size: dp(16)
+                        font_size: dp(20)
                         background_color: [0,0,0,0]
                         background_image: ""
                         background_normal: ""
@@ -204,7 +214,7 @@
                 size_hint_x: 1
                 Label:
                     text: "Outside Activities"
-                    font_size: dp(18)
+                    font_size: dp(36)
                 RecycleView:
                     id: outside_rv
                     viewclass: 'ActivityItem'
@@ -226,7 +236,7 @@
                         hint_text_color: [0,0,0, 1]
                         foreground_color: [1,1,1,1]
                         hint_text: "Add outside activity"
-                        font_size: dp(16)
+                        font_size: dp(20)
                         background_color: [0,0,0,0]
                         background_image: ""
                         background_normal: ""
@@ -256,7 +266,7 @@
                 size_hint_x: 1
                 Label:
                     text: "Inside Activities"
-                    font_size: dp(18)
+                    font_size: dp(36)
                 RecycleView:
                     id: inside_rv
                     viewclass: 'ActivityItem'
@@ -278,7 +288,7 @@
                         hint_text_color: [0,0,0, 1]
                         foreground_color: [1,1,1,1]
                         hint_text: "Add inside activity"
-                        font_size: dp(16)
+                        font_size: dp(20)
                         background_color: [0,0,0,0]
                         background_image: ""
                         background_normal: ""
@@ -339,6 +349,14 @@
                 text: "Back"
                 size_hint: (None, 1) # Fixed width, fills parent height
                 width: dp(100)
+                background_color: (0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [dp(20), dp(20), dp(20), dp(20)]
                 on_release: app.root.current = 'home'
             Widget:
         Label:
@@ -351,23 +369,57 @@
             orientation: 'horizontal'
             size_hint_y: None
             height: dp(50)
+            spacing: dp(20)
             Button:
                 text: "Digital Activity"
                 size_hint_x: 1 # Share width
+                background_color: (0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [dp(20), dp(20), dp(20), dp(20)]
                 on_release: root.suggest('digital')
             Button:
                 text: "Analogue Activity"
                 size_hint_x: 1 # Share width
+                background_color: (0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [dp(20), dp(20), dp(20), dp(20)]
                 on_release: root.suggest('analogue')
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
             height: dp(50)
+            spacing: dp(20)
             Button:
                 text: "Outside Activity"
                 size_hint_x: 1 # Share width
+                background_color: (0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [dp(20), dp(20), dp(20), dp(20)]
                 on_release: root.suggest('outside')
             Button:
                 text: "Inside Activity"
                 size_hint_x: 1 # Share width
+                background_color: (0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [dp(20), dp(20), dp(20), dp(20)]
                 on_release: root.suggest('inside')
