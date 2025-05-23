@@ -1,261 +1,373 @@
 <HomeScreen>:
     BoxLayout:
         orientation: 'vertical'
-        spacing: 20
-        padding: 40
+        spacing: dp(20)
+        padding: dp(40)
+        # change background color
+        canvas.before:
+            Color:
+                #:import hex kivy.utils.get_color_from_hex
+                rgba: hex('#7282a6cc')
+            Rectangle:
+                pos: self.pos
+                size: self.size
         Label:
             text: "WhatNow"
-            font_size: 70
-            color: 0, 2, 1, 1
+            font_size: dp(70)
+            font_name: 'fonts/Monoton-Regular.ttf'
+            color: 0, 1, 1, 1
         Widget:  # Pushes content down
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
-            height: 130  # Adjust as needed for spacing
-            spacing: 20
+            height: dp(130)  # Adjust as needed for spacing
+            spacing: dp(20)
             Button:
                 text: "Your activities"
-                size_hint: None, None
-                size: 200, 50
+                font_name: 'fonts/Satoshi-Medium.otf'
+                font_size: dp(40)
+                #:import hex kivy.utils.get_color_from_hex
+                color: hex('#becfeb')
+                size_hint: (0.4, None) # Width is 60% of parent, height is fixed
+                height: dp(100)
                 pos_hint: {'center_x': 0.5}
+                background_color: (0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: 0.1, 0.5, 0.7, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20), dp(20), dp(20), dp(20)] # Radius for rounded corners
                 on_release: app.root.current = 'activities'
             Button:
                 text: "Suggestion!"
-                size_hint: None, None
-                size: 200, 50
+                font_name: 'fonts/Satoshi-Medium.otf'
+                font_size: dp(40)
+                #:import hex kivy.utils.get_color_from_hex
+                color: hex('#becfeb')
+                size_hint: (0.4, None) # Width is 60% of parent, height is fixed
+                height: dp(100)
                 pos_hint: {'center_x': 0.5}
+                background_color: (0,0,0,0) # Make default background transparent
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [dp(20), dp(20), dp(20), dp(20)] # Radius for rounded corners
                 on_release: app.root.current = 'suggestion'
         Widget:  # Pushes content up
 
 <ActivitiesScreen>:
     BoxLayout:
         orientation: 'vertical'
-        padding: 20
-        spacing: 10
+        padding: dp(20)
+        spacing: dp(10)
+        canvas.before:
+            Color:
+                #:import hex kivy.utils.get_color_from_hex
+                rgba: hex('#7282a6cc')
+            Rectangle:
+                pos: self.pos
+                size: self.size
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
-            height: 50
+            height: dp(50)
             Button:
                 text: "Back"
-                size_hint: None, None
-                size: 100, 40
+                size_hint: (None, 1) # Fixed width, fills parent height
+                width: dp(100)
                 on_release: app.root.current = 'home'
             Widget:  # Fills the rest of the row
         Label:
             text: "Your Activities"
-            font_size: 60
+            font_size: dp(60)
+        # First row of activity columns
         BoxLayout:
             orientation: 'horizontal'
-            spacing: 20
+            spacing: dp(20)
+            # Digital Activities Column
             BoxLayout:
                 orientation: 'vertical'
+                size_hint_x: 1
+                # size_hint_y: None  // REMOVE this line or change to size_hint_y: 1
                 Label:
                     text: "Digital Activities"
-                    font_size: 18
+                    font_size: dp(18)
                 RecycleView:
                     id: digital_rv
                     viewclass: 'ActivityItem'
                     data: [{'text': activity, 'activity_type': 'digital', 'root_widget': root} for activity in root.digital_activities]
-                    RecycleBoxLayout:
-                        default_size: None, 40
+                    RecycleBoxLayout: # Single child of RecycleView
+                        default_size: None, dp(40)
                         default_size_hint: 1, None
                         size_hint_y: None
                         height: self.minimum_height
-                        size_hint_x: None
-                        width: 560
+                        size_hint_x: 1
                         orientation: 'vertical'
+                # This BoxLayout is for TextInput and Button, SIBLING to RecycleView
                 BoxLayout:
+                    size_hint_x: 1
                     size_hint_y: None
-                    height: 50
+                    height: dp(40)
                     TextInput:
                         id: digital_input
+                        hint_text_color: [0,0,0, 1]
+                        foreground_color: [1,1,1,1]
                         hint_text: "Add digital activity"
+                        font_size: dp(16)
+                        background_color: [0,0,0,0]
+                        background_image: ""
+                        background_normal: ""
+                        background_active: ""
                         multiline: False
-                        font_size: 22
-                        size_hint_y: None
-                        height: 50
-                        size_hint_x: None
-                        width: 500
+                        size_hint_y: 0.9
+                        size_hint_x: 0.9
                         on_text_validate: root.add_activity('digital', self.text); self.text = ''
+                        canvas.before:
+                            Color:
+                                rgba: [1,1,1,0.5]
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: 20,
                     Button:
+                        background_color: (0,0,0,0)
                         text: "+"
                         color: 0, 1, 255, 1
-                        font_size: 40
-                        size_hint_x: None
-                        width: 60
-                        height: 50
+                        font_size: dp(36)
+                        size_hint_y: 0.5  # Takes 50% of this BoxLayout's height
+                        size_hint_x: 0.1
                         on_release: root.add_activity('digital', digital_input.text); digital_input.text = ''
+            # Analogue Activities Column
             BoxLayout:
                 orientation: 'vertical'
+                size_hint_x: 1
                 Label:
                     text: "Analogue Activities"
-                    font_size: 18
+                    font_size: dp(18)
                 RecycleView:
                     id: analogue_rv
                     viewclass: 'ActivityItem'
                     data: [{'text': activity, 'activity_type': 'analogue', 'root_widget': root} for activity in root.analogue_activities]
-                    RecycleBoxLayout:
-                        default_size: None, 40
+                    RecycleBoxLayout: # Single child of RecycleView
+                        default_size: None, dp(40)
                         default_size_hint: 1, None
                         size_hint_y: None
                         height: self.minimum_height
-                        size_hint_x: None
-                        width: 560
+                        size_hint_x: 1
                         orientation: 'vertical'
+                # This BoxLayout is for TextInput and Button, SIBLING to RecycleView
                 BoxLayout:
+                    size_hint_x: 1
                     size_hint_y: None
-                    height: 50
+                    height: dp(40)
                     TextInput:
                         id: analogue_input
+                        hint_text_color: [0,0,0, 1]
+                        foreground_color: [1,1,1,1]
                         hint_text: "Add analogue activity"
+                        font_size: dp(16)
+                        background_color: [0,0,0,0]
+                        background_image: ""
+                        background_normal: ""
+                        background_active: ""
                         multiline: False
-                        font_size: 22
-                        size_hint_y: None
-                        height: 50
-                        size_hint_x: None
-                        width: 500
+                        size_hint_y: 0.9
+                        size_hint_x: 0.9
                         on_text_validate: root.add_activity('analogue', self.text); self.text = ''
+                        canvas.before:
+                            Color:
+                                rgba: [1,1,1,0.5]
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: 20,
                     Button:
+                        background_color: (0,0,0,0)
                         text: "+"
                         color: 0, 1, 255, 1
-                        font_size: 40
-                        size_hint_x: None
-                        width: 60
-                        height: 50
+                        font_size: dp(36)
+                        size_hint_y: 0.5
+                        size_hint_x: 0.1
                         on_release: root.add_activity('analogue', analogue_input.text); analogue_input.text = ''
+        # Second row of activity columns
         BoxLayout:
             orientation: 'horizontal'
-            spacing: 20
+            spacing: dp(20)
+            # Outside Activities Column
             BoxLayout:
                 orientation: 'vertical'
+                size_hint_x: 1
                 Label:
                     text: "Outside Activities"
-                    font_size: 18
+                    font_size: dp(18)
                 RecycleView:
                     id: outside_rv
                     viewclass: 'ActivityItem'
                     data: [{'text': activity, 'activity_type': 'outside', 'root_widget': root} for activity in root.outside_activities]
-                    RecycleBoxLayout:
-                        default_size: None, 40
+                    RecycleBoxLayout: # Single child of RecycleView
+                        default_size: None, dp(40)
                         default_size_hint: 1, None
                         size_hint_y: None
                         height: self.minimum_height
-                        size_hint_x: None
-                        width: 560
+                        size_hint_x: 1
                         orientation: 'vertical'
+                # This BoxLayout is for TextInput and Button, SIBLING to RecycleView
                 BoxLayout:
+                    size_hint_x: 1
                     size_hint_y: None
-                    height: 50
+                    height: dp(40)
                     TextInput:
                         id: outside_input
+                        hint_text_color: [0,0,0, 1]
+                        foreground_color: [1,1,1,1]
                         hint_text: "Add outside activity"
+                        font_size: dp(16)
+                        background_color: [0,0,0,0]
+                        background_image: ""
+                        background_normal: ""
+                        background_active: ""
                         multiline: False
-                        font_size: 22
-                        size_hint_y: None
-                        height: 50
-                        size_hint_x: None
-                        width: 500
+                        size_hint_y: 0.9
+                        size_hint_x: 0.9
                         on_text_validate: root.add_activity('outside', self.text); self.text = ''
+                        canvas.before:
+                            Color:
+                                rgba: [1,1,1,0.5]
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: 20,
                     Button:
+                        background_color: (0,0,0,0)
                         text: "+"
                         color: 0, 1, 255, 1
-                        font_size: 40
-                        size_hint_x: None
-                        width: 60
-                        height: 50
+                        font_size: dp(36)
+                        size_hint_y: 0.5
+                        size_hint_x: 0.1
                         on_release: root.add_activity('outside', outside_input.text); outside_input.text = ''
+            # Inside Activities Column
             BoxLayout:
-                orientation: 'horizontal'
-                spacing: 20
-                BoxLayout:
-                    orientation: 'vertical'
-                    Label:
-                        text: "Inside Activities"
-                        font_size: 18
-                    RecycleView:
-                        id: inside_rv
-                        viewclass: 'ActivityItem'
-                        data: [{'text': activity, 'activity_type': 'inside', 'root_widget': root} for activity in root.inside_activities]
-                        RecycleBoxLayout:
-                            default_size: None, 40
-                            default_size_hint: 1, None
-                            size_hint_y: None
-                            height: self.minimum_height
-                            size_hint_x: None
-                            width: 560
-                            orientation: 'vertical'
-                    BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 1
+                Label:
+                    text: "Inside Activities"
+                    font_size: dp(18)
+                RecycleView:
+                    id: inside_rv
+                    viewclass: 'ActivityItem'
+                    data: [{'text': activity, 'activity_type': 'inside', 'root_widget': root} for activity in root.inside_activities]
+                    RecycleBoxLayout: # Single child of RecycleView
+                        default_size: None, dp(40)
+                        default_size_hint: 1, None
                         size_hint_y: None
-                        height: 50
-                        TextInput:
-                            id: inside_input
-                            multiline: False
-                            font_size: 22
-                            size_hint_y: None
-                            height: 50
-                            size_hint_x: None
-                            width: 500
-                            on_text_validate: root.add_activity('inside', self.text); self.text = ''
-                        Button:
-                            text: "+"
-                            color: 0, 1, 255, 1
-                            font_size: 40
-                            size_hint_x: None
-                            width: 60
-                            height: 50
-                            on_release: root.add_activity('inside', inside_input.text); inside_input.text = ''
+                        height: self.minimum_height
+                        size_hint_x: 1
+                        orientation: 'vertical'
+                # This BoxLayout is for TextInput and Button, SIBLING to RecycleView
+                BoxLayout:
+                    size_hint_x: 1
+                    size_hint_y: None
+                    height: dp(40)
+                    TextInput:
+                        id: inside_input
+                        hint_text_color: [0,0,0, 1]
+                        foreground_color: [1,1,1,1]
+                        hint_text: "Add inside activity"
+                        font_size: dp(16)
+                        background_color: [0,0,0,0]
+                        background_image: ""
+                        background_normal: ""
+                        background_active: ""
+                        multiline: False
+                        size_hint_y: 0.9
+                        size_hint_x: 0.9
+                        on_text_validate: root.add_activity('inside', self.text); self.text = ''
+                        canvas.before:
+                            Color:
+                                rgba: [1,1,1,0.5]
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: 20,
+                    Button:
+                        background_color: (0,0,0,0)
+                        text: "+"
+                        color: 0, 1, 255, 1
+                        font_size: dp(36)
+                        size_hint_y: 0.5
+                        size_hint_x: 0.1
+                        on_release: root.add_activity('inside', inside_input.text); inside_input.text = ''
 
 <ActivityItem@BoxLayout>:
     text: ''
     activity_type: ''
     root_widget: None
-    size_hint_y: None
-    height: 40
+    size_hint_y: None # Correct for RecycleView items when default_size is used
     Label:
         text: root.text
     Button:
+        background_color: (0,0,0,0)
         text: "×"
-        font_size: 40
+        font_size: dp(36)
         color: 1, 0, 0, 1
-        size_hint_x: None
-        width: 70
+        size_hint_x: None # Correct for a fixed width button
+        width: dp(40) # Add a specific width, e.g., dp(40) or dp(70) as you had before
         on_release: root.root_widget.remove_activity(root.activity_type, root.text)
 
 <SuggestionScreen>:
     BoxLayout:
         orientation: 'vertical'
-        padding: 40
-        spacing: 20
+        padding: dp(40)
+        spacing: dp(20)
+        canvas.before:
+            Color:
+                #:import hex kivy.utils.get_color_from_hex
+                rgba: hex('#7282a6cc')
+            Rectangle:
+                pos: self.pos
+                size: self.size
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
-            height: 50
+            height: dp(50)
             Button:
                 text: "Back"
-                size_hint: None, None
-                size: 100, 40
+                size_hint: (None, 1) # Fixed width, fills parent height
+                width: dp(100)
                 on_release: app.root.current = 'home'
             Widget:
         Label:
             text: "What to do?"
-            font_size: 60
+            font_size: dp(60)
         Label:
             text: root.suggestion
-            font_size: 70
+            font_size: dp(70)
         BoxLayout:
             orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(50)
             Button:
                 text: "Digital Activity"
+                size_hint_x: 1 # Share width
                 on_release: root.suggest('digital')
             Button:
                 text: "Analogue Activity"
+                size_hint_x: 1 # Share width
                 on_release: root.suggest('analogue')
         BoxLayout:
             orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(50)
             Button:
                 text: "Outside Activity"
+                size_hint_x: 1 # Share width
                 on_release: root.suggest('outside')
             Button:
                 text: "Inside Activity"
+                size_hint_x: 1 # Share width
                 on_release: root.suggest('inside')
