@@ -7,7 +7,7 @@
         canvas.before:
             Color:
                 #:import hex kivy.utils.get_color_from_hex
-                rgba: hex('#7282a6cc')
+                rgba: (0.075, 0.22, 0.196, 1)
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -15,7 +15,9 @@
             text: "WhatNow"
             font_size: dp(70)
             font_name: 'fonts/Monoton-Regular.ttf'
-            color: 0, 1, 1, 1
+            #color: (0.925, 0.671, 0.129, 1)
+            color: (0.533, 0.161, 0.102, 1)
+            #color: 0.988, 0.357, 0.075, 1
         Widget:  # Pushes content down
         BoxLayout:
             orientation: 'vertical'
@@ -27,14 +29,15 @@
                 font_name: 'fonts/Satoshi-Medium.otf'
                 font_size: dp(40)
                 #:import hex kivy.utils.get_color_from_hex
-                color: hex('#becfeb')
+                color: (0.016, 0.129, 0.259, 1)
                 size_hint: (0.4, None) # Width is 60% of parent, height is fixed
                 height: dp(100)
                 pos_hint: {'center_x': 0.5}
                 background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: 0.1, 0.5, 0.7, 1
+                        #rgba: (0.533, 0.161, 0.102, 1)
+                        rgba: (0.8, 0.51, 0.157, 1)
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
@@ -45,14 +48,17 @@
                 font_name: 'fonts/Satoshi-Medium.otf'
                 font_size: dp(40)
                 #:import hex kivy.utils.get_color_from_hex
-                color: hex('#becfeb')
+                color: (0.016, 0.129, 0.259, 1)
                 size_hint: (0.4, None) # Width is 60% of parent, height is fixed
                 height: dp(100)
                 pos_hint: {'center_x': 0.5}
                 background_color: (0,0,0,0) # Make default background transparent
                 canvas.before:
                     Color:
-                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                        #rgba: (0.533, 0.161, 0.102, 1)
+                        #rgba: (0.867, 0.522, 0.169, 1)
+                        #rgba: (0.945, 0.882, 0.643, 1)
+                        rgba: (0.8, 0.51, 0.157, 1)
                     RoundedRectangle:
                         size: self.size
                         pos: self.pos
@@ -78,6 +84,7 @@
             height: dp(50)
             Button:
                 text: "Back"
+                font_name: 'fonts/Satoshi-Medium.otf'
                 size_hint: (None, 1) # Fixed width, fills parent height
                 width: dp(100)
                 background_color: (0,0,0,0)
@@ -92,6 +99,7 @@
             Widget:  # Fills the rest of the row
         Label:
             text: "Your Activities"
+            font_name: 'fonts/Satoshi-Medium.otf'
             font_size: dp(60)
             size_hint_y: None
             height: self.texture_size[1]
@@ -106,6 +114,7 @@
                 # size_hint_y: None  // REMOVE this line or change to size_hint_y: 1
                 Label:
                     text: "Digital Activities"
+                    font_name: 'fonts/Satoshi-Medium.otf'
                     font_size: dp(36)
                 RecycleView:
                     id: digital_rv
@@ -128,6 +137,7 @@
                         hint_text_color: [0,0,0, 1]
                         foreground_color: [1,1,1,1]
                         hint_text: "Add digital activity"
+                        font_name: 'fonts/Satoshi-Medium.otf'
                         font_size: dp(20)
                         background_color: [0,0,0,0]
                         background_image: ""
@@ -147,6 +157,7 @@
                     Button:
                         background_color: (0,0,0,0)
                         text: "+"
+                        font_name: 'fonts/Satoshi-Medium.otf'
                         color: 0, 1, 255, 1
                         font_size: dp(36)
                         size_hint_y: 0.5  # Takes 50% of this BoxLayout's height
@@ -158,6 +169,7 @@
                 size_hint_x: 1
                 Label:
                     text: "Analogue Activities"
+                    font_name: 'fonts/Satoshi-Medium.otf'
                     font_size: dp(36)
                 RecycleView:
                     id: analogue_rv
@@ -180,6 +192,7 @@
                         hint_text_color: [0,0,0, 1]
                         foreground_color: [1,1,1,1]
                         hint_text: "Add analogue activity"
+                        font_name: 'fonts/Satoshi-Medium.otf'
                         font_size: dp(20)
                         background_color: [0,0,0,0]
                         background_image: ""
@@ -199,6 +212,7 @@
                     Button:
                         background_color: (0,0,0,0)
                         text: "+"
+                        font_name: 'fonts/Satoshi-Medium.otf'
                         color: 0, 1, 255, 1
                         font_size: dp(36)
                         size_hint_y: 0.5
@@ -214,6 +228,7 @@
                 size_hint_x: 1
                 Label:
                     text: "Outside Activities"
+                    font_name: 'fonts/Satoshi-Medium.otf'
                     font_size: dp(36)
                 RecycleView:
                     id: outside_rv
@@ -236,6 +251,7 @@
                         hint_text_color: [0,0,0, 1]
                         foreground_color: [1,1,1,1]
                         hint_text: "Add outside activity"
+                        font_name: 'fonts/Satoshi-Medium.otf'
                         font_size: dp(20)
                         background_color: [0,0,0,0]
                         background_image: ""
@@ -255,6 +271,7 @@
                     Button:
                         background_color: (0,0,0,0)
                         text: "+"
+                        font_name: 'fonts/Satoshi-Medium.otf'
                         color: 0, 1, 255, 1
                         font_size: dp(36)
                         size_hint_y: 0.5
@@ -266,6 +283,7 @@
                 size_hint_x: 1
                 Label:
                     text: "Inside Activities"
+                    font_name: 'fonts/Satoshi-Medium.otf'
                     font_size: dp(36)
                 RecycleView:
                     id: inside_rv
@@ -288,6 +306,7 @@
                         hint_text_color: [0,0,0, 1]
                         foreground_color: [1,1,1,1]
                         hint_text: "Add inside activity"
+                        font_name: 'fonts/Satoshi-Medium.otf'
                         font_size: dp(20)
                         background_color: [0,0,0,0]
                         background_image: ""
@@ -307,6 +326,7 @@
                     Button:
                         background_color: (0,0,0,0)
                         text: "+"
+                        font_name: 'fonts/Satoshi-Medium.otf'
                         color: 0, 1, 255, 1
                         font_size: dp(36)
                         size_hint_y: 0.5
@@ -320,9 +340,11 @@
     size_hint_y: None # Correct for RecycleView items when default_size is used
     Label:
         text: root.text
+        font_name: 'fonts/Satoshi-Medium.otf'
     Button:
         background_color: (0,0,0,0)
         text: "×"
+        font_name: 'fonts/Satoshi-Medium.otf'
         font_size: dp(36)
         color: 1, 0, 0, 1
         size_hint_x: None # Correct for a fixed width button
@@ -347,6 +369,7 @@
             height: dp(50)
             Button:
                 text: "Back"
+                font_name: 'fonts/Satoshi-Medium.otf'
                 size_hint: (None, 1) # Fixed width, fills parent height
                 width: dp(100)
                 background_color: (0,0,0,0)
@@ -361,10 +384,12 @@
             Widget:
         Label:
             text: "What to do?"
+            font_name: 'fonts/Monoton-Regular.ttf'
             font_size: dp(60)
         Label:
             text: root.suggestion
             font_size: dp(70)
+            font_name: 'fonts/Satoshi-Medium.otf'
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
@@ -372,6 +397,7 @@
             spacing: dp(20)
             Button:
                 text: "Digital Activity"
+                font_name: 'fonts/Satoshi-Medium.otf'
                 size_hint_x: 1 # Share width
                 background_color: (0,0,0,0)
                 canvas.before:
@@ -384,6 +410,7 @@
                 on_release: root.suggest('digital')
             Button:
                 text: "Analogue Activity"
+                font_name: 'fonts/Satoshi-Medium.otf'
                 size_hint_x: 1 # Share width
                 background_color: (0,0,0,0)
                 canvas.before:
@@ -401,6 +428,7 @@
             spacing: dp(20)
             Button:
                 text: "Outside Activity"
+                font_name: 'fonts/Satoshi-Medium.otf'
                 size_hint_x: 1 # Share width
                 background_color: (0,0,0,0)
                 canvas.before:
@@ -413,6 +441,7 @@
                 on_release: root.suggest('outside')
             Button:
                 text: "Inside Activity"
+                font_name: 'fonts/Satoshi-Medium.otf'
                 size_hint_x: 1 # Share width
                 background_color: (0,0,0,0)
                 canvas.before:
