@@ -1,16 +1,19 @@
+#:import hex kivy.utils.get_color_from_hex
+
+<Screen>: # Base rule for all screens
+    canvas.before:
+        Color:
+            rgba: (0.075, 0.22, 0.196, 1) # Your desired common background color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
 <HomeScreen>:
     BoxLayout:
         orientation: 'vertical'
         spacing: dp(20)
         padding: dp(40)
-        # change background color
-        canvas.before:
-            Color:
-                #:import hex kivy.utils.get_color_from_hex
-                rgba: (0.075, 0.22, 0.196, 1)
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        # Removed canvas.before from here, as the <Screen> rule now handles the background.
         Label:
             text: "WhatNow"
             font_size: dp(70)
@@ -67,17 +70,12 @@
         Widget:  # Pushes content up
 
 <ActivitiesScreen>:
+    # id: activities_screen_instance # This id was added in a previous step, ensure it's still here if needed by Python code
     BoxLayout:
         orientation: 'vertical'
-        padding: dp(20)
+        padding: dp(20) # Adjusted padding, was dp(10)
         spacing: dp(10)
-        canvas.before:
-            Color:
-                #:import hex kivy.utils.get_color_from_hex
-                rgba: hex('#7282a6cc')
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        # Removed canvas.before from here, as the <Screen> rule now handles the background.
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
@@ -85,12 +83,13 @@
             Button:
                 text: "Back"
                 font_name: 'fonts/Satoshi-Medium.otf'
+                color: (0.016, 0.129, 0.259, 1)
                 size_hint: (None, 1) # Fixed width, fills parent height
                 width: dp(100)
                 background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                        rgba: (0.8, 0.51, 0.157, 1) # Your desired background color
                     RoundedRectangle:
                         size: self.size
                         pos: self.pos
@@ -100,6 +99,7 @@
         Label:
             text: "Your Activities"
             font_name: 'fonts/Satoshi-Medium.otf'
+            color: (0.533, 0.161, 0.102, 1)
             font_size: dp(60)
             size_hint_y: None
             height: self.texture_size[1]
@@ -116,6 +116,7 @@
                     text: "Digital Activities"
                     font_name: 'fonts/Satoshi-Medium.otf'
                     font_size: dp(36)
+                    color: (0.671, 0.416, 0.333, 1)
                 RecycleView:
                     id: digital_rv
                     viewclass: 'ActivityItem'
@@ -158,7 +159,7 @@
                         background_color: (0,0,0,0)
                         text: "+"
                         font_name: 'fonts/Satoshi-Medium.otf'
-                        color: 0, 1, 255, 1
+                        color: (0, 0.447, 0.35, 1)
                         font_size: dp(36)
                         size_hint_y: 0.5  # Takes 50% of this BoxLayout's height
                         size_hint_x: 0.1
@@ -171,6 +172,7 @@
                     text: "Analogue Activities"
                     font_name: 'fonts/Satoshi-Medium.otf'
                     font_size: dp(36)
+                    color: (0.671, 0.416, 0.333, 1)
                 RecycleView:
                     id: analogue_rv
                     viewclass: 'ActivityItem'
@@ -213,7 +215,7 @@
                         background_color: (0,0,0,0)
                         text: "+"
                         font_name: 'fonts/Satoshi-Medium.otf'
-                        color: 0, 1, 255, 1
+                        color: (0, 0.447, 0.35, 1)
                         font_size: dp(36)
                         size_hint_y: 0.5
                         size_hint_x: 0.1
@@ -230,6 +232,7 @@
                     text: "Outside Activities"
                     font_name: 'fonts/Satoshi-Medium.otf'
                     font_size: dp(36)
+                    color: (0.671, 0.416, 0.333, 1)
                 RecycleView:
                     id: outside_rv
                     viewclass: 'ActivityItem'
@@ -272,7 +275,7 @@
                         background_color: (0,0,0,0)
                         text: "+"
                         font_name: 'fonts/Satoshi-Medium.otf'
-                        color: 0, 1, 255, 1
+                        color: (0, 0.447, 0.35, 1)
                         font_size: dp(36)
                         size_hint_y: 0.5
                         size_hint_x: 0.1
@@ -285,6 +288,7 @@
                     text: "Inside Activities"
                     font_name: 'fonts/Satoshi-Medium.otf'
                     font_size: dp(36)
+                    color: (0.671, 0.416, 0.333, 1)
                 RecycleView:
                     id: inside_rv
                     viewclass: 'ActivityItem'
@@ -327,7 +331,7 @@
                         background_color: (0,0,0,0)
                         text: "+"
                         font_name: 'fonts/Satoshi-Medium.otf'
-                        color: 0, 1, 255, 1
+                        color: (0, 0.447, 0.35, 1)
                         font_size: dp(36)
                         size_hint_y: 0.5
                         size_hint_x: 0.1
@@ -341,12 +345,13 @@
     Label:
         text: root.text
         font_name: 'fonts/Satoshi-Medium.otf'
+        color: (0.933, 0.918, 0.878, 1)
     Button:
         background_color: (0,0,0,0)
         text: "×"
         font_name: 'fonts/Satoshi-Medium.otf'
         font_size: dp(36)
-        color: 1, 0, 0, 1
+        color: (0.533, 0.161, 0.102, 1)
         size_hint_x: None # Correct for a fixed width button
         width: dp(40) # Add a specific width, e.g., dp(40) or dp(70) as you had before
         on_release: root.root_widget.remove_activity(root.activity_type, root.text)
@@ -356,13 +361,7 @@
         orientation: 'vertical'
         padding: dp(40)
         spacing: dp(20)
-        canvas.before:
-            Color:
-                #:import hex kivy.utils.get_color_from_hex
-                rgba: hex('#7282a6cc')
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        # Removed canvas.before from here, as the <Screen> rule now handles the background.
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
@@ -370,12 +369,13 @@
             Button:
                 text: "Back"
                 font_name: 'fonts/Satoshi-Medium.otf'
+                color: (0.016, 0.129, 0.259, 1)
                 size_hint: (None, 1) # Fixed width, fills parent height
                 width: dp(100)
                 background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                        rgba: (0.8, 0.51, 0.157, 1) # Your desired background color
                     RoundedRectangle:
                         size: self.size
                         pos: self.pos
@@ -385,10 +385,12 @@
         Label:
             text: "What to do?"
             font_name: 'fonts/Monoton-Regular.ttf'
+            color: (0.533, 0.161, 0.102, 1)
             font_size: dp(60)
         Label:
             text: root.suggestion
             font_size: dp(70)
+            color: (0.671, 0.416, 0.333, 1)
             font_name: 'fonts/Satoshi-Medium.otf'
         BoxLayout:
             orientation: 'horizontal'
@@ -398,11 +400,12 @@
             Button:
                 text: "Digital Activity"
                 font_name: 'fonts/Satoshi-Medium.otf'
+                color: (0.016, 0.129, 0.259, 1)
                 size_hint_x: 1 # Share width
                 background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                        rgba: (0.8, 0.51, 0.157, 1) # Your desired background color
                     RoundedRectangle:
                         size: self.size
                         pos: self.pos
@@ -411,11 +414,12 @@
             Button:
                 text: "Analogue Activity"
                 font_name: 'fonts/Satoshi-Medium.otf'
+                color: (0.016, 0.129, 0.259, 1)
                 size_hint_x: 1 # Share width
                 background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                        rgba: (0.8, 0.51, 0.157, 1) # Your desired background color
                     RoundedRectangle:
                         size: self.size
                         pos: self.pos
@@ -429,11 +433,12 @@
             Button:
                 text: "Outside Activity"
                 font_name: 'fonts/Satoshi-Medium.otf'
+                color: (0.016, 0.129, 0.259, 1)
                 size_hint_x: 1 # Share width
                 background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                        rgba: (0.8, 0.51, 0.157, 1) # Your desired background color
                     RoundedRectangle:
                         size: self.size
                         pos: self.pos
@@ -442,11 +447,12 @@
             Button:
                 text: "Inside Activity"
                 font_name: 'fonts/Satoshi-Medium.otf'
+                color: (0.016, 0.129, 0.259, 1)
                 size_hint_x: 1 # Share width
                 background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: (0.1, 0.5, 0.7, 1) # Your desired background color
+                        rgba: (0.8, 0.51, 0.157, 1) # Your desired background color
                     RoundedRectangle:
                         size: self.size
                         pos: self.pos
